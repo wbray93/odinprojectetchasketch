@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+.divContainerStyling {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    height: 80vh;
+}
+
+.divContainerStyling > div {
+    border: 1px solid black;
+    height: 35px;
+    width: 35px;
+}
+
+.divContainerStyling > div:nth-child(17n + 1) {
+    width: 100% !important;
+    border: 0;
+    height: 0;
+}
