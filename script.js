@@ -1,4 +1,4 @@
-const createdDivsContainer = document.querySelector("#createdDivsContainer");
+let createdDivsContainer = document.querySelector("#createdDivsContainer");
 let createdDivs;
 
 function defaultCreatedDivs() {
@@ -9,6 +9,17 @@ function defaultCreatedDivs() {
 }
 
 defaultCreatedDivs();
+
+function divHoverEffect(event) {
+    if (!event.target.classList.contains("divContainerStyling")) {
+        event.target.classList.add("hoverColor");
+    }
+}
+
+createdDivsContainer.addEventListener('mouseover', (event) => {
+    divHoverEffect(event);
+    console.log(event);
+});
 
 function userCreatedDivs(num) {
     createdDivsContainer.append(num);
