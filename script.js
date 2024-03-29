@@ -46,7 +46,7 @@ button1.addEventListener('click', (event) => {
 });
 
 button2.addEventListener('click', (event) => {
-    userCreatedDivs(event);
+    userCreatedGrid(event);
     console.log(event);
 });
 
@@ -58,7 +58,7 @@ function clearDivHoverEffect() {
     })
 };
 
-function userCreatedDivs() {
+function userCreatedGrid() {
     squaresPerSide = prompt("Enter the number for your grid size");
     //makes sure users cant put value higher than 100 for performance reasons.
     if (squaresPerSide > 100) {
