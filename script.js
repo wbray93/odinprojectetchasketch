@@ -1,38 +1,56 @@
 let createdDivsContainer = document.querySelector("#createdDivsContainer");
+
+const containerSize = 600;
+let squaresPerSide = 16;
+
+
+createdDivsContainer.style.width = createdDivsContainer.style.height = `${containerSize}px`;
+
+
 let button1 = document.querySelector("#button1")
 let button2 = document.querySelector("#button2")
 
-//Creates the default grid
-function defaultCreatedDivs() {
-    let createdDivs;
-    for (let i = 1; i < 257; i++) {
-        createdDivs = document.createElement("div");
+function createdGrid() {
+    const numOfSquares = (squaresPerSide * squaresPerSide);
+    const widthOrHeight = `${(containerSize / squaresPerSide) - 2}px`;
+    for (let i = 0; i < numOfSquares; i++) {
+        const createdDivs = document.createElement("div");
+
+        createdDivs.style.width = createdDivs.style.height = widthOrHeight;
+
         createdDivsContainer.appendChild(createdDivs);
     }
 }
 
-//Calls the function that creates the default grid
-defaultCreatedDivs();
+createdGrid();
 
-//Changes the color of grid squares upon mouseover.
 function divHoverEffect(event) {
     if (!event.target.classList.contains("divContainerStyling")) {
         event.target.classList.add("hoverColor");
     }
 }
 
-//Event listener for mouseover event
 createdDivsContainer.addEventListener('mouseover', (event) => {
     divHoverEffect(event);
+});
+
+
+//placeholder event listener for mobile friendly interaction.
+// createdDivsContainer.addEventListener("", (event) => {
+//     divHoverEffect(event);
+// });
+
+
+button1.addEventListener('click', (event) => {
+    clearDivHoverEffect(event);
+});
+
+button2.addEventListener('click', (event) => {
+    userCreatedDivs(event);
     console.log(event);
 });
 
 
-//new event listener I am having issues with
-button1.addEventListener('click', (event) => {
-    clearDivHoverEffect(event);
-});
-//function that goes with it that is not wanting to work console weirdly enough is not throwing any errors either.
 function clearDivHoverEffect() {
     let removeDivClass = document.querySelectorAll("div");
     removeDivClass.forEach(div => {
@@ -40,24 +58,24 @@ function clearDivHoverEffect() {
     })
 };
 
-//Unsure why my loop is not functioning properly but when I click the button afater answering the prompt i get a console error stating unable to remove node as node is not a child of parent node. However the parent is in fact the createdDivsContainer div so I am confused as to why it is throwing me an error which is weird.
-//Customer user generated divs function.
-function userCreatedDivs(gridSize) {
-    gridSize = prompt("Enter the number for your grid size");
-    let gridTotal = gridSize * gridSize;
+function userCreatedDivs() {
+    squaresPerSide = prompt("Enter the number for your grid size");
+    //makes sure users cant put value higher than 100 for performance reasons.
+    if (squaresPerSide > 100) {
+        squaresPerSide = 16;
+    }
+    const newNumberOfSquares = (squaresPerSide * squaresPerSide);
+    const widthOrHeight = `${(containerSize / squaresPerSide) - 2}px`;
     while (createdDivsContainer.firstChild) {
         createdDivsContainer.removeChild(createdDivsContainer.firstChild);
     }
-    for (let i = 1; i < gridTotal; i++) {
+
+    for (let i = 0; i < newNumberOfSquares; i++) {
         let userDivs = document.createElement("div");
+        userDivs.style.width = userDivs.style.height = widthOrHeight;
+
         createdDivsContainer.appendChild(userDivs);
+
+        userDivs.addEventListener("mouseover", divHoverEffect);
     }
 }
-
-//new event listener I am having issues with
-button2.addEventListener('click', (event) => {
-    userCreatedDivs(event);
-    console.log(event);
-});
-
-console.log(createdDivs);
